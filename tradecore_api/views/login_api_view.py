@@ -35,6 +35,6 @@ class LoginAPIView(APIView):
             user.save()
         else:
             response = {"message": "Invalid email or password"}
-            status_code = status.HTTP_400_BAD_REQUEST
+            status_code = status.HTTP_401_UNAUTHORIZED
 
-        return Response(response, status=status.HTTP_200_OK)
+        return Response(response, status=status_code)
