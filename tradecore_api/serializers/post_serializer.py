@@ -5,4 +5,4 @@ from tradecore_api.models import Post
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = '__all__'
+        exclude = ("like",)

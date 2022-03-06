@@ -28,7 +28,7 @@ class SignUpAPIView(APIView):
         ip = request.META.get("REMOTE_ADDR", '')
         geolocation_data = AccountUtility.get_geolocation_data(ip)
         request.data["geolocation_data"] = geolocation_data
-        request.data["joined_on_holidat"] =AccountUtility.get_holiday_data(geolocation_data)
+        request.data["joined_on_holiday"] =AccountUtility.get_holiday_data(geolocation_data)
         user = request.data
         try:
             serializer = UserSerializer(data=user)

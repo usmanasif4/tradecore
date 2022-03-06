@@ -5,6 +5,7 @@ import os
 import jwt
 import requests
 from rest_framework_jwt.utils import jwt_payload_handler
+from tradecore_api.models import User, Post
 
 DEFAULT_REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:64.0) Gecko/20100101 Firefox/64.0",
@@ -34,6 +35,18 @@ class AccountUtility:
         if not email or not password:
             valid = False
         if type(email) is not str or type(password) is not str:
+            valid = False
+        return valid
+
+    @classmethod
+    def validate_post_params(cls, id, action):
+        """
+        Method to validate params for post
+        """
+        valid = True
+        if not id or type(id) is not str:
+            valid = False
+        if not action or type(action) is not str or action not in ["like", "unlike"]:
             valid = False
         return valid
 
@@ -83,8 +96,20 @@ class AccountUtility:
         """
         Takes in jwt token, returns user data
         """
-        if jwt_token:
+        try:
             user_data = jwt.decode(jwt_token[4:], os.environ.get("SECRET_KEY"))
-            return user_data
-        else:
+            user = User.objects.get(email=user_data["email"])
+            return user
+        except Exception as exc:
             return None
+
+    @classmethod
+    def check_post_authorization(cls, user, post_id):
+        """
+        Takes in a user object, checks authorization for post
+        """
+        try:
+            post = Post.objects.get(id=post_id)
+            return True if post.user == user else False
+        except Exception as exc:
+            return False
