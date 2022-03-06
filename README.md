@@ -57,13 +57,13 @@ The token can be obtained using the Login endpoint
     "description": "new description"
 }
 ```
-5. ```http://127.0.0.1:8000/api/post```
+5. Get Posts: ```http://127.0.0.1:8000/api/post```
 The endpoint accepts a GET request. Returns the all the posts for the user for which the token is in the header. There must be a 'Authorization' header in request with the following value JWT <token>
 The token can be obtained using the Login endpoint
-6. ```http://127.0.0.1:8000/api/post/2```
+6. Delete Post: ```http://127.0.0.1:8000/api/post/2```
 The endpoint accepts a DELETE request. The integer at the end is the id of the post which is to be deleted. There must be a 'Authorization' header in request with the following value JWT <token>
 The token can be obtained using the Login endpoint
-7. ```http://127.0.0.1:8000/api/post/2```
+7. Update Post: ```http://127.0.0.1:8000/api/post/2```
 The endpoint accepts a PATCH request with the following request body and params as json. The integer at the end is the id of the post for which the data is to be updated. There must be a 'Authorization' header in request with the following value JWT <token>
 The token can be obtained using the Login endpoint. Any attribute of post can be updated
 ```
@@ -72,7 +72,7 @@ The token can be obtained using the Login endpoint. Any attribute of post can be
     "description": "updated description"
 }
 ```
-8. ```http://127.0.0.1:8000/api/post```
+8. Like/Unlike Post: ```http://127.0.0.1:8000/api/post```
 The endpoint accepts a PATCH request with the following request body and params as json. There must be a 'Authorization' header in request with the following value JWT <token>
 The token can be obtained using the Login endpoint. The endpoint is used to like or unlike a post. The post_id is the id of the post which is to be liked/unliked. The action can be any of the two values (like, unlike). The action is taken on the post from the user for which the token is supplied in the header.
 ```
